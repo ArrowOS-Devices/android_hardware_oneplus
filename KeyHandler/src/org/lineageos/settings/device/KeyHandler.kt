@@ -108,7 +108,7 @@ class KeyHandler : Service() {
         when (mode) {
             AudioManager.RINGER_MODE_SILENT -> {
                 notificationManager.setZenMode(Settings.Global.ZEN_MODE_OFF, null, TAG)
-                audioManager.setRingerModeInternal(mode)
+                audioManager.ringerModeInternal = mode
                 if (muteMedia) {
                     audioManager.adjustVolume(AudioManager.ADJUST_MUTE, 0)
                     wasMuted = true
@@ -116,13 +116,13 @@ class KeyHandler : Service() {
             }
             AudioManager.RINGER_MODE_VIBRATE, AudioManager.RINGER_MODE_NORMAL -> {
                 notificationManager.setZenMode(Settings.Global.ZEN_MODE_OFF, null, TAG)
-                audioManager.setRingerModeInternal(mode)
+                audioManager.ringerModeInternal = mode
                 if (muteMedia && wasMuted) {
                     audioManager.adjustVolume(AudioManager.ADJUST_UNMUTE, 0)
                 }
             }
             ZEN_PRIORITY_ONLY, ZEN_TOTAL_SILENCE, ZEN_ALARMS_ONLY -> {
-                audioManager.setRingerModeInternal(AudioManager.RINGER_MODE_NORMAL)
+                audioManager.ringerModeInternal = AudioManager.RINGER_MODE_NORMAL
                 notificationManager.setZenMode(mode - ZEN_OFFSET, null, TAG)
                 if (muteMedia && wasMuted) {
                     audioManager.adjustVolume(AudioManager.ADJUST_UNMUTE, 0)
