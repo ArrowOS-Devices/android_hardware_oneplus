@@ -19,7 +19,6 @@ import android.os.UEventObserver
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.provider.Settings
-import android.view.KeyEvent
 
 class KeyHandler : Service() {
     private lateinit var audioManager: AudioManager
